@@ -1,12 +1,8 @@
 from collections import Counter
 
-with open("./day_2_input.txt", "r+") as passwords:
-    
-    valid_passwords = 0
-    password_total = 0
-    for password_attempt in passwords:
+with open("./day_2_input.txt", "r") as passwords:
 
-      def get_password_details(line):
+    def get_password_details(line):
         details = {}
         parts = line.split(" ")
 
@@ -16,19 +12,23 @@ with open("./day_2_input.txt", "r+") as passwords:
 
         return details
 
-      def validate_password(attempt):
+
+    def validate_password(attempt):
         details = get_password_details(attempt)
         char_counts = Counter(details["password_string"])
+        target_char_count = char_counts[details['char']]
+        low_count = details["char_count"][0]
+        high_count = details["char_count"][1]
         
-        if char_counts[details['char']] in range(details["char_count"][0], details["char_count"][1]+1):
-            print('valid', details['char_count'], details['char'], details['password_string'], char_counts[details['char']])
+        if target_char_count in range(low_count, high_count+1):
             return 1
         else:
-            print('invalid', details['char_count'], details['char'], details['password_string'], char_counts[details['char']])
             return 0
-        
-      valid_passwords += validate_password(password_attempt)
-      password_total += 1
+    
+    valid_passwords = 0
+
+    for password_attempt in passwords:        
+        valid_passwords += validate_password(password_attempt)
 
 
-    print(password_total, valid_passwords)
+    print(valid_passwords)
