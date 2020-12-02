@@ -1,4 +1,4 @@
-with open("day_1/day_1_input.txt", "r+") as transactions:
+with open("./day_1_input.txt", "r") as transactions:
     transaction_list = []
 
     for transaction in transactions:
