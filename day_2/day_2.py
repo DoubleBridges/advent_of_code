@@ -20,10 +20,7 @@ with open("./day_2_input.txt", "r") as passwords:
     #     low_count = details["char_count"][0]
     #     high_count = details["char_count"][1]
         
-    #     if target_char_count in range(low_count, high_count+1):
-    #         return 1
-    #     else:
-    #         return 0
+    #    return 1 if target_char_count in range(low_count, high_count+1) else 0
 
     # Day 2        
     def validate_password(attempt):
@@ -35,11 +32,7 @@ with open("./day_2_input.txt", "r") as passwords:
         first_char = password[first_position]
         second_char = password[second_position]
         
-        if (first_char == target_char or second_char == target_char) and (first_char != second_char):
-            return 1
-        else:
-            return 0
-            
+        return 1 if (first_char == target_char or second_char == target_char) and (first_char != second_char) else 0
     
     valid_passwords = 0
 
