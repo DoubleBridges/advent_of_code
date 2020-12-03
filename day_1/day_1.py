@@ -27,17 +27,19 @@ with open("./day_1_input.txt", "r") as transactions:
     def threeSum(transactions, target_sum):
         num_of_transactions = len(transactions)
 
-        for i in range(0, num_of_transactions - 2):
-            low_pointer = i + 1
+        for idx in range(0, num_of_transactions - 2):
+            low_pointer = idx + 1
             high_pointer = num_of_transactions - 1
 
             while low_pointer < high_pointer:
+                transaction_sum =  transactions[idx] + transactions[low_pointer] + transactions[high_pointer]
+                transaction_product = transactions[idx] * transactions[low_pointer] * transactions[high_pointer]
 
-                if transactions[i] + transactions[low_pointer] + transactions[high_pointer] == target_sum:
+                if transaction_sum == target_sum:
                     
-                    return  transactions[i] * transactions[low_pointer] * transactions[high_pointer]
+                    return  transaction_product
 
-                elif transactions[i] + transactions[low_pointer] + transactions[high_pointer] < target_sum:
+                elif transaction_sum < target_sum:
                     low_pointer += 1
 
                 else: 
