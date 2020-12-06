@@ -20,12 +20,6 @@ with open("day_4_input.txt", "r") as passports:
     all_passports.append(current_passport)
     current_passport = []
 
-    def format_passport(fields_list):
-        return {field_name: info for (field_name, info) in fields_list}
-
-    def create_formatted_passports(passport_list):
-        return [format_passport(passport) for passport in passport_list]
-
     def validate_field(field_name, info):
         def in_range(low, string, high):
             return low <= int(string) <= high
@@ -112,14 +106,20 @@ with open("day_4_input.txt", "r") as passports:
             fields.intersection(required_fields) == required_fields
         )
 
-        def validate_all_fields(passport):
+        def all_fields_validated(passport):
             validated_fields = [
                 validate_field(field, passport[field]) for field in passport.keys()
             ]
 
             return False not in validated_fields
 
-        return has_all_required_fields and validate_all_fields(passport)
+        return has_all_required_fields and all_fields_validated(passport)
+
+    def format_passport(fields_list):
+        return {field_name: info for (field_name, info) in fields_list}
+
+    def create_formatted_passports(passport_list):
+        return [format_passport(passport) for passport in passport_list]
 
     formatted_passports = create_formatted_passports(all_passports)
     valid_passports = sum(
