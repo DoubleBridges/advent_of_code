@@ -32,14 +32,27 @@ with open("example.txt", "r") as answers:
 
         for answer_set in answers:
             if answer_set != "\n":
-                for answer in answer_set:
+                for answer in answer_set.strip("\n"):
                     group_answers.append(answer.strip("\n"))
-                    group_members += 1
-                else:
-                    answers_by_group.append(group_answers)
-                    group_answers = []
+                group_members += 1
+            else:
+                answers_by_group.append((group_members, dict(Counter(group_answers))))
+                group_answers = []
+                group_members = 0
 
         answers_by_group.append(group_answers)
         return answers_by_group
 
-    print(grouped_answers_2(answers))
+    def unanimous(answers):
+        counts = []
+        for answer_count in answers:
+            group_counts = []
+            members = answer_count[0]
+            count_map = answer_count[1]
+            for answer in count_map.keys():
+                if count_map[answer] == members:
+                    group_counts.append(answer)
+
+        return counts
+
+    print(unanimous(grouped_answers_2(answers)))
