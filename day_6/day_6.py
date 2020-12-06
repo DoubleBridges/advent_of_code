@@ -1,6 +1,6 @@
 from collections import Counter
 
-with open("example.txt", "r") as answers:
+with open("day_6_input.txt", "r") as answers:
 
     def grouped_answers(answers):
         answers_by_group = []
@@ -40,7 +40,7 @@ with open("example.txt", "r") as answers:
                 group_answers = []
                 group_members = 0
 
-        answers_by_group.append(group_answers)
+        answers_by_group.append((group_members, dict(Counter(group_answers))))
         return answers_by_group
 
     def unanimous(answers):
@@ -49,10 +49,16 @@ with open("example.txt", "r") as answers:
             group_counts = []
             members = answer_count[0]
             count_map = answer_count[1]
+
             for answer in count_map.keys():
                 if count_map[answer] == members:
                     group_counts.append(answer)
 
+            counts.append(group_counts)
+            group_counts = []
+
         return counts
 
-    print(unanimous(grouped_answers_2(answers)))
+    unanimous_answers = unanimous(grouped_answers_2(answers))
+
+    print(sum([len(answer) for answer in unanimous_answers]))
